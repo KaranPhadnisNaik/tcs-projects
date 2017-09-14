@@ -57,15 +57,12 @@ class Hangman():
                 print "Your guess was RIGHT!"
                 used += "," + guess if used!="" else guess
                 self.hangman_graphic(guesses,word)
-                final = self.progress_updater(guess, word, progress)
+                final = self.update(guess, word, progress)
                 print "Progress: " + final
                 print "Letter used: " + used
 
             elif guess not in word and guess not in used:
-                if len(guess) > 1:
-                    print "Please enter a single letter! No numbers or punctuation allowed either!"
-                    continue
-                if not guess.isalpha():
+                if len(guess) > 1 or not guess.isalpha():
                     print "Please enter a single letter! No numbers or punctuation allowed either!"
                     continue
 
@@ -132,11 +129,10 @@ class Hangman():
             print "Well it looks like you LOST"
             print "The correct word was "+word.upper()
             print "GAME OVER!"
-            self.__init__()
 
-    def progress_updater(self, guess, word, progress):
+    def update(self, guess, word, progress):
         i = 0
-        while i < len(word):
+        for i in range(len(word)):
             if guess == word[i]:
                 progress[i] = guess
                 i += 1
